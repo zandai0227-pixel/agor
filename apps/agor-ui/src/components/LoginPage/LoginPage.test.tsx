@@ -14,9 +14,9 @@ describe('LoginPage external launch redirect', () => {
   it('keeps the local login form as the default when no redirect is configured', () => {
     const { container } = render(<LoginPage onLogin={vi.fn()} />);
 
-    expect(screen.getByPlaceholderText('Email address')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Sign In' })).toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Return to workspace' })).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText('邮箱地址')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '登录' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: '返回工作区' })).not.toBeInTheDocument();
     expect(container.querySelector('[data-gradient-backdrop="page"]')).toHaveAttribute(
       'aria-hidden',
       'true'
@@ -40,13 +40,13 @@ describe('LoginPage external launch redirect', () => {
       />
     );
 
-    const returnLink = screen.getByRole('link', { name: 'Return to workspace' });
+    const returnLink = screen.getByRole('link', { name: '返回工作区' });
     expect(returnLink).toHaveAttribute(
       'href',
       `https://workspace.example.com/open?return_to=${encodeURIComponent(currentPath())}`
     );
-    expect(screen.queryByPlaceholderText('Email address')).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Sign In' })).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('邮箱地址')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '登录' })).not.toBeInTheDocument();
   });
 
   it('does not show first-time admin setup guidance on the local login form', () => {
@@ -66,7 +66,7 @@ describe('LoginPage external launch redirect', () => {
       />
     );
 
-    const returnLink = screen.getByRole('link', { name: 'Return to workspace' });
+    const returnLink = screen.getByRole('link', { name: '返回工作区' });
     const href = returnLink.getAttribute('href');
     expect(href).toBe(
       `https://workspace.example.com/open?source=agor&return_to=${encodeURIComponent(currentPath())}`
@@ -83,7 +83,7 @@ describe('LoginPage external launch redirect', () => {
       />
     );
 
-    const returnLink = screen.getByRole('link', { name: 'Return to workspace' });
+    const returnLink = screen.getByRole('link', { name: '返回工作区' });
     const href = new URL(returnLink.getAttribute('href') ?? '');
     expect(href.searchParams.getAll('return_to')).toEqual([currentPath()]);
   });
@@ -96,10 +96,10 @@ describe('LoginPage external launch redirect', () => {
       />
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Use local login instead' }));
+    fireEvent.click(screen.getByRole('button', { name: '使用本地登录' }));
 
-    expect(screen.getByPlaceholderText('Email address')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Sign In' })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('邮箱地址')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '登录' })).toBeInTheDocument();
   });
 
   it('does not offer a local-login fallback when identity authority disables it', () => {
@@ -111,18 +111,18 @@ describe('LoginPage external launch redirect', () => {
       />
     );
 
-    expect(screen.getByRole('link', { name: 'Return to workspace' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '返回工作区' })).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Use local login instead' })
+      screen.queryByRole('button', { name: '使用本地登录' })
     ).not.toBeInTheDocument();
-    expect(screen.queryByPlaceholderText('Email address')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('邮箱地址')).not.toBeInTheDocument();
   });
 
   it('explains externally managed sign-in when no return URL is configured', () => {
     render(<LoginPage onLogin={vi.fn()} localLoginEnabled={false} />);
 
     expect(screen.getByText('Sign-in is managed by your workspace')).toBeInTheDocument();
-    expect(screen.queryByPlaceholderText('Email address')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('邮箱地址')).not.toBeInTheDocument();
   });
 
   it('pairs launch errors with the external return action', () => {
@@ -135,7 +135,7 @@ describe('LoginPage external launch redirect', () => {
     );
 
     expect(screen.getByText('Launch sign-in failed')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Return to workspace' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '返回工作区' })).toHaveAttribute(
       'href',
       `https://workspace.example.com/open?return_to=${encodeURIComponent(currentPath())}`
     );

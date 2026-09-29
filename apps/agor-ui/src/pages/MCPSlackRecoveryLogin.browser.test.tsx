@@ -17,7 +17,7 @@ describe('Slack MCP recovery login return', () => {
     );
 
     const href = new URL(
-      screen.getByRole('link', { name: 'Return to workspace' }).getAttribute('href') ?? ''
+      screen.getByRole('link', { name: '返回工作区' }).getAttribute('href') ?? ''
     );
     expect(href.searchParams.get('return_to')).toBe('/ui/recover/mcp#token=signed-browser-token');
     expect(window.location.hash).toBe('#token=signed-browser-token');
@@ -28,13 +28,13 @@ describe('Slack MCP recovery login return', () => {
     const onLogin = vi.fn(async () => true);
     render(<LoginPage onLogin={onLogin} />);
 
-    fireEvent.change(screen.getByPlaceholderText('Email address'), {
+    fireEvent.change(screen.getByPlaceholderText('邮箱地址'), {
       target: { value: 'member@example.test' },
     });
-    fireEvent.change(screen.getByPlaceholderText('Password'), {
+    fireEvent.change(screen.getByPlaceholderText('密码'), {
       target: { value: 'correct horse battery staple' },
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }));
+    fireEvent.click(screen.getByRole('button', { name: '登录' }));
 
     await waitFor(() => expect(onLogin).toHaveBeenCalledOnce());
     expect(window.location.hash).toBe('#token=signed-browser-token');

@@ -512,7 +512,7 @@ const SettingsModalContent: React.FC<SettingsModalProps> = ({
     return (
       <Drawer
         title={null}
-        aria-label="Workspace settings"
+        aria-label="工作区设置"
         closable={false}
         placement="bottom"
         // Full-bleed so the settings surface covers the app header instead of
@@ -538,7 +538,7 @@ const SettingsModalContent: React.FC<SettingsModalProps> = ({
               <Button
                 type="text"
                 icon={<ArrowLeftOutlined />}
-                aria-label="Back"
+                aria-label="返回"
                 onClick={() => setMobileSection(null)}
                 style={{ minWidth: MOBILE_TOUCH_TARGET, minHeight: MOBILE_TOUCH_TARGET }}
               />
@@ -550,12 +550,12 @@ const SettingsModalContent: React.FC<SettingsModalProps> = ({
               ellipsis
               style={{ margin: 0, flex: 1, minWidth: 0, textAlign: 'center' }}
             >
-              {mobileSection ? settingsSectionMobileLabel(mobileSection) : 'Settings'}
+              {mobileSection ? settingsSectionMobileLabel(mobileSection) : '设置'}
             </Typography.Title>
             <Button
               type="text"
               icon={<CloseOutlined />}
-              aria-label="Close settings"
+              aria-label="关闭设置"
               onClick={onClose}
               style={{ minWidth: MOBILE_TOUCH_TARGET, minHeight: MOBILE_TOUCH_TARGET }}
             />
@@ -595,7 +595,7 @@ const SettingsModalContent: React.FC<SettingsModalProps> = ({
                         letterSpacing: 0.4,
                       }}
                     >
-                      Account
+                      账户
                     </Typography.Text>
                     <div style={settingsGroupCardStyle}>
                       <Flex align="center" gap={token.margin} style={{ padding: token.padding }}>
@@ -765,7 +765,7 @@ const SettingsModalContent: React.FC<SettingsModalProps> = ({
               color: token.colorText,
             }}
           >
-            Settings
+            设置
           </div>
           <Menu
             mode="inline"

@@ -126,11 +126,11 @@ export function LoginPage({
               block
               data-testid="external-launch-return"
             >
-              Return to workspace
+              返回工作区
             </Button>
             {localLoginEnabled && !showLocalLogin && (
               <Button type="link" block onClick={() => setShowLocalLogin(true)}>
-                Use local login instead
+                使用本地登录
               </Button>
             )}
           </Space>
@@ -148,7 +148,7 @@ export function LoginPage({
         {/* Login Form */}
         {showLoginForm && (
           <>
-            {useExternalLaunch && <Divider style={{ margin: '0 0 24px 0' }}>Local login</Divider>}
+            {useExternalLaunch && <Divider style={{ margin: '0 0 24px 0' }}>本地登录</Divider>}
             <Form
               form={form}
               name="login"
@@ -165,7 +165,7 @@ export function LoginPage({
               >
                 <Input
                   prefix={<MailOutlined style={{ color: token.colorTextQuaternary }} />}
-                  placeholder="Email address"
+                  placeholder="邮箱地址"
                   autoComplete="email"
                 />
               </Form.Item>
@@ -176,14 +176,14 @@ export function LoginPage({
               >
                 <Input.Password
                   prefix={<LockOutlined style={{ color: token.colorTextQuaternary }} />}
-                  placeholder="Password"
+                  placeholder="密码"
                   autoComplete="current-password"
                 />
               </Form.Item>
 
               <Form.Item style={{ marginBottom: 8 }}>
                 <Button type="primary" htmlType="submit" loading={submitting || loading} block>
-                  Sign In
+                  登录
                 </Button>
               </Form.Item>
             </Form>

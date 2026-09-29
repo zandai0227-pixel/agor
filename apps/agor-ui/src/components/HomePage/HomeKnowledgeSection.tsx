@@ -114,17 +114,17 @@ export const HomeKnowledgeSection: React.FC<{ client: AgorClient | null; connect
   }, [client, connected]);
   return (
     <section
-      aria-label="Knowledge base"
+      aria-label="知识库"
       style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}
     >
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 6 }}>
         <BulbOutlined style={{ color: token.colorTextSecondary, fontSize: 13 }} />
         <Text strong style={{ fontSize: 14, flex: 1 }}>
-          Knowledge
+          知识库
         </Text>
         <Input
           size="small"
-          placeholder="Search..."
+          placeholder="搜索…"
           prefix={<SearchOutlined style={{ color: token.colorTextQuaternary, fontSize: 11 }} />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -137,7 +137,7 @@ export const HomeKnowledgeSection: React.FC<{ client: AgorClient | null; connect
           style={{ padding: 0, fontSize: 12 }}
           onClick={() => navigate('/knowledge')}
         >
-          {total > docs.length ? `View all ${total}` : 'View all'}
+          {total > docs.length ? `查看全部（${total}）` : '查看全部'}
         </Button>
       </div>
       <Card

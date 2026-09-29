@@ -50,20 +50,20 @@ export function buildSettingsNav({
   const groups: SettingsNavGroup[] = [
     {
       key: 'workspace',
-      title: 'Workspace',
+      title: '工作区',
       rows: [
-        { section: 'boards', label: 'Boards', icon: <AppstoreOutlined /> },
-        { section: 'repos', label: 'Repositories', icon: <FolderOutlined /> },
+        { section: 'boards', label: '看板', icon: <AppstoreOutlined /> },
+        { section: 'repos', label: '代码仓库', icon: <FolderOutlined /> },
         { section: 'branches', label: 'Branches', icon: <BranchesOutlined /> },
-        { section: 'teammates', label: 'Teammates', icon: <RobotOutlined /> },
-        { section: 'cards', label: 'Cards', icon: <CreditCardOutlined />, beta: true },
+        { section: 'teammates', label: 'AI 队友', icon: <RobotOutlined /> },
+        { section: 'cards', label: '卡片', icon: <CreditCardOutlined />, beta: true },
         { section: 'artifacts', label: 'Artifacts', icon: <ExperimentOutlined /> },
         // Menu-only admin gate; the pane itself is not in canSeeSection.
         ...(isAdmin
           ? [
               {
                 section: 'workspace-preferences' as const,
-                label: 'Preferences',
+                label: '偏好设置',
                 icon: <ControlOutlined />,
               },
             ]
@@ -72,41 +72,41 @@ export function buildSettingsNav({
     },
     {
       key: 'integrations',
-      title: 'Integrations',
+      title: '集成',
       rows: [
         {
           section: 'agentic-tools',
-          label: 'Agentic Tools',
-          mobileLabel: 'Agentic tools',
+          label: 'AI 工具',
+          mobileLabel: 'AI 工具',
           icon: <ThunderboltOutlined />,
         },
         { section: 'mcp', label: 'MCP Servers', mobileLabel: 'MCP servers', icon: <ApiOutlined /> },
         {
           section: 'gateway',
-          label: 'Gateway Channels',
-          mobileLabel: 'Gateway channels',
+          label: '消息通道',
+          mobileLabel: '消息通道',
           icon: <MessageOutlined />,
         },
       ],
     },
     {
       key: 'admin',
-      title: 'Admin',
-      mobileTitle: 'Members & groups',
+      title: '管理',
+      mobileTitle: '成员与用户组',
       rows: [
-        { section: 'groups', label: 'Groups', icon: <TeamOutlined /> },
-        { section: 'users', label: 'Users', icon: <TeamOutlined /> },
+        { section: 'groups', label: '用户组', icon: <TeamOutlined /> },
+        { section: 'users', label: '用户管理', icon: <TeamOutlined /> },
       ],
     },
     {
       key: 'system',
-      title: 'System',
-      mobileTitle: 'About',
+      title: '系统',
+      mobileTitle: '关于',
       rows: [
         {
           section: 'about',
-          label: 'About',
-          mobileLabel: 'About Agor',
+          label: '关于',
+          mobileLabel: '关于 Agor',
           icon: <InfoCircleOutlined />,
         },
       ],

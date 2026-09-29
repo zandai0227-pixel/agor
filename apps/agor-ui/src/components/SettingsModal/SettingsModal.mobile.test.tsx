@@ -51,39 +51,39 @@ describe('SettingsModal mobile index', () => {
   it('opens on a grouped index with no section dropdown', () => {
     render(<MobileSettings />);
     expect(screen.queryByLabelText('Settings section')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Boards' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Repositories' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'About Agor' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '看板' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '代码仓库' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '关于 Agor' })).toBeInTheDocument();
     // Group headings + account identity summary.
-    expect(screen.getByText('Workspace')).toBeInTheDocument();
-    expect(screen.getByText('Account')).toBeInTheDocument();
+    expect(screen.getByText('工作区')).toBeInTheDocument();
+    expect(screen.getByText('账户')).toBeInTheDocument();
     // The index itself is not the content yet.
     expect(screen.queryByText('Boards section content')).not.toBeInTheDocument();
   });
 
   it('drills into a section and back to the index', () => {
     render(<MobileSettings />);
-    fireEvent.click(screen.getByRole('button', { name: 'Boards' }));
+    fireEvent.click(screen.getByRole('button', { name: '看板' }));
 
     expect(screen.getByText('Boards section content')).toBeInTheDocument();
-    const back = screen.getByRole('button', { name: 'Back' });
+    const back = screen.getByRole('button', { name: '返回' });
     expect(back).toBeInTheDocument();
 
     fireEvent.click(back);
     // Back at the index; content is gone and the rows are shown again.
     expect(screen.queryByText('Boards section content')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Repositories' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '代码仓库' })).toBeInTheDocument();
   });
 
   it('seeds straight into a deep-linked section (with Back to the index)', () => {
     render(<MobileSettings initial="teammates" />);
     expect(screen.getByText('Teammates section content')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '返回' })).toBeInTheDocument();
   });
 
   it('gates rows by role (a viewer sees no Users/Groups)', () => {
     render(<MobileSettings userRole="viewer" />);
-    expect(screen.queryByRole('button', { name: 'Users' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Groups' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '用户管理' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '用户组' })).not.toBeInTheDocument();
   });
 });

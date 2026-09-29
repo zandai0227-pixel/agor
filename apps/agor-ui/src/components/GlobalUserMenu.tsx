@@ -50,7 +50,7 @@ export const GlobalUserMenu: React.FC<GlobalUserMenuProps> = ({
       key: 'user-settings',
       label: (
         <Space>
-          <span>User Settings</span>
+          <span>个人设置</span>
           {audioEnabled && (
             <Tooltip title="Audio notifications enabled">
               <SoundOutlined style={{ color: token.colorSuccess, fontSize: 12 }} />
@@ -66,7 +66,7 @@ export const GlobalUserMenu: React.FC<GlobalUserMenuProps> = ({
     },
     {
       key: 'logout',
-      label: 'Logout',
+      label: '退出登录',
       icon: <LogoutOutlined />,
       onClick: () => {
         setOpen(false);
@@ -84,7 +84,7 @@ export const GlobalUserMenu: React.FC<GlobalUserMenuProps> = ({
       onOpenChange={setOpen}
       disabled={disabled}
     >
-      <Tooltip title={user?.name || 'User menu'} placement="bottom">
+      <Tooltip title={user?.name || '用户菜单'} placement="bottom">
         <Button
           type="text"
           icon={<UserOutlined style={{ fontSize: token.fontSizeLG }} />}
