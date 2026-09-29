@@ -4,7 +4,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-      target: production
+      # Build this checkout, including the Chinese UI, rather than the upstream npm package.
+      target: production-source
     # No container_name - allows multiple instances
     ports:
       # Expose daemon port (daemon serves both API and UI)

@@ -248,7 +248,7 @@ export const HomeBoardsSection: React.FC<
   const showPager = rows.length > BOARDS_PER_PAGE;
 
   return (
-    <section aria-label="Boards" style={{ marginBottom: 24 }}>
+    <section aria-label="看板" style={{ marginBottom: 24 }}>
       <div
         style={{
           display: 'flex',
@@ -258,7 +258,7 @@ export const HomeBoardsSection: React.FC<
         }}
       >
         <Text strong style={{ fontSize: 14 }}>
-          Boards
+          看板
         </Text>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {showPager && (
@@ -267,7 +267,7 @@ export const HomeBoardsSection: React.FC<
                 type="text"
                 size="small"
                 icon={<LeftOutlined />}
-                aria-label="Previous boards"
+                aria-label="上一页看板"
                 disabled={currentPage === 0}
                 onClick={() => setPage(Math.max(0, currentPage - 1))}
               />
@@ -278,7 +278,7 @@ export const HomeBoardsSection: React.FC<
                 type="text"
                 size="small"
                 icon={<RightOutlined />}
-                aria-label="Next boards"
+                aria-label="下一页看板"
                 disabled={currentPage >= totalPages - 1}
                 onClick={() => setPage(Math.min(totalPages - 1, currentPage + 1))}
               />
@@ -291,7 +291,7 @@ export const HomeBoardsSection: React.FC<
             style={{ padding: 0 }}
             onClick={() => onOpenCreateDialog('board')}
           >
-            New board
+            新建看板
           </Button>
         </div>
       </div>
@@ -299,11 +299,11 @@ export const HomeBoardsSection: React.FC<
       {rows.length === 0 ? (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="No boards yet"
+          description="暂无看板"
           style={{ padding: '24px 0' }}
         >
           <Button type="primary" onClick={() => onOpenCreateDialog('board')}>
-            Create your first board
+            创建第一个看板
           </Button>
         </Empty>
       ) : (

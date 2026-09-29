@@ -83,7 +83,7 @@ const RecentBoardPills: React.FC<{
           <Button
             type="text"
             size="small"
-            aria-label={`Switch to board ${board.name}`}
+            aria-label={`切换到看板 ${board.name}`}
             onClick={() => onBoardChange(board.board_id)}
             style={{
               width: 30,
@@ -178,7 +178,7 @@ const AppHeaderInner: React.FC<AppHeaderProps> = ({
       ? [
           {
             key: 'event-stream',
-            label: 'Live Events',
+            label: '实时事件',
             disabled: mutationDisabled,
             onClick: onEventStreamClick,
           },
@@ -189,19 +189,19 @@ const AppHeaderInner: React.FC<AppHeaderProps> = ({
       key: 'documentation',
       label: (
         <a href="https://agor.live/guide/getting-started" target="_blank" rel="noopener noreferrer">
-          Documentation
+          使用文档
         </a>
       ),
     },
     {
       key: 'theme',
-      label: 'Theme',
+      label: '主题',
       children: buildThemeMenuItems(themeMode, setThemeMode, onThemeEditorClick),
     },
     { type: 'divider' as const },
     {
       key: 'settings',
-      label: 'Settings',
+      label: '设置',
       disabled: mutationDisabled,
       onClick: onSettingsClick,
     },
@@ -221,7 +221,7 @@ const AppHeaderInner: React.FC<AppHeaderProps> = ({
       <Space size={16} align="center">
         <button
           type="button"
-          aria-label="Go to Home"
+          aria-label="返回首页"
           onClick={onHomeClick}
           style={{
             height: 54,
@@ -322,12 +322,12 @@ const AppHeaderInner: React.FC<AppHeaderProps> = ({
           boardById={boardById}
           onSettingsClick={onSettingsClick}
         />
-        <Tooltip title="Knowledge Base">
+        <Tooltip title="知识库">
           <Button
             type="text"
             icon={<BulbOutlined style={{ fontSize: token.fontSizeLG }} />}
             href={knowledgeHref}
-            aria-label="Knowledge Base"
+            aria-label="知识库"
             onClick={(event) => {
               if (isPlainLeftClick(event)) {
                 event.preventDefault();
@@ -338,11 +338,11 @@ const AppHeaderInner: React.FC<AppHeaderProps> = ({
           />
         </Tooltip>
         {catalog && (
-          <Tooltip title="Open MCP Catalog">
+          <Tooltip title="打开 MCP 目录">
             <Button
               type="text"
               icon={<ShopOutlined style={{ fontSize: token.fontSizeLG }} />}
-              aria-label="Open MCP Catalog"
+              aria-label="打开 MCP 目录"
               onClick={(event) => catalog.openCatalog(event.currentTarget)}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             />

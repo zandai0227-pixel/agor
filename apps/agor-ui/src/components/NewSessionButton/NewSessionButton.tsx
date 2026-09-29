@@ -9,7 +9,7 @@ export interface NewSessionButtonProps {
 export const NewSessionButton: React.FC<NewSessionButtonProps> = ({ onClick }) => {
   const connectionDisabled = useConnectionDisabled();
   const { token } = theme.useToken();
-  const tooltip = connectionDisabled ? 'Disconnected from daemon' : 'Create new...';
+  const tooltip = connectionDisabled ? '与 daemon 的连接已断开' : '新建…';
 
   return (
     <Tooltip title={tooltip} placement="left">

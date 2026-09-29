@@ -125,7 +125,7 @@ export const BoardSwitcher: React.FC<BoardSwitcherProps> = ({
           key: '__empty__',
           label: (
             <Text type="secondary" style={{ fontStyle: 'italic' }}>
-              No boards found
+              未找到看板
             </Text>
           ),
           disabled: true,
@@ -208,18 +208,18 @@ export const BoardSwitcher: React.FC<BoardSwitcherProps> = ({
     >
       <Space size={8}>
         <HomeOutlined style={{ fontSize: 18 }} />
-        <Text strong={!currentBoardId}>Home</Text>
+        <Text strong={!currentBoardId}>首页</Text>
       </Space>
     </Button>
   );
 
   const editButton = canManage && currentBoard && (
-    <Tooltip title="Edit current board">
+    <Tooltip title="编辑当前看板">
       <Button
         type="text"
         size="small"
         icon={<EditOutlined />}
-        aria-label={`Edit current board: ${currentBoard.name}`}
+        aria-label={`编辑当前看板：${currentBoard.name}`}
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -302,14 +302,14 @@ export const BoardSwitcher: React.FC<BoardSwitcherProps> = ({
                 <>
                   <div style={{ padding: '8px 12px' }}>
                     <Input
-                      placeholder="Filter boards..."
+                      placeholder="筛选看板…"
                       prefix={<SearchOutlined style={{ color: token.colorTextQuaternary }} />}
                       value={filterText}
                       onChange={(e) => setFilterText(e.target.value)}
                       size="small"
                       allowClear
                       autoFocus
-                      aria-label="Filter boards"
+                      aria-label="筛选看板"
                     />
                   </div>
                   <Divider style={{ margin: 0 }} />
@@ -342,7 +342,7 @@ export const BoardSwitcher: React.FC<BoardSwitcherProps> = ({
                 <HomeOutlined style={{ fontSize: 18 }} />
               )}
               <Text strong ellipsis style={{ flex: 1, minWidth: 0 }} data-current-board-name>
-                {currentBoard?.name || 'Home'}
+                {currentBoard?.name || '首页'}
               </Text>
             </Flex>
             <DownOutlined

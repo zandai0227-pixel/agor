@@ -43,9 +43,9 @@ function hasVisibleSession(sessionById: AgorState['sessionById'], currentUserId?
 }
 
 const NEW_MENU_ITEMS: MenuProps['items'] = [
-  { key: 'teammate', label: 'New AI teammate', icon: <RobotOutlined /> },
-  { key: 'branch', label: 'New branch', icon: <BranchesOutlined /> },
-  { key: 'board', label: 'New board', icon: <AppstoreOutlined /> },
+  { key: 'teammate', label: '新建 AI 队友', icon: <RobotOutlined /> },
+  { key: 'branch', label: '新建 Branch', icon: <BranchesOutlined /> },
+  { key: 'board', label: '新建看板', icon: <AppstoreOutlined /> },
 ];
 
 /**
@@ -84,37 +84,37 @@ const HomeOnboarding: React.FC<{
     return [
       {
         id: 'repo',
-        label: 'Connect a repository',
+        label: '连接代码仓库',
         done: hasRepos,
-        cta: 'Connect →',
+        cta: '连接 →',
         onClick: () => onOpenSettings('repos'),
       },
       {
         id: 'board',
-        label: 'Create your first board',
+        label: '创建第一个看板',
         done: hasBoards,
-        cta: 'Create →',
+        cta: '创建 →',
         onClick: () => onOpenCreateDialog('board'),
       },
       {
         id: 'session',
-        label: 'Launch an AI session',
+        label: '发起 AI 会话',
         done: hasSessions,
-        cta: 'Start →',
+        cta: '开始 →',
         onClick: onNewSession,
       },
       {
         id: 'mcp',
-        label: 'Configure MCP tools',
+        label: '配置 MCP 工具',
         done: hasMcp,
-        cta: 'Set up →',
+        cta: '设置 →',
         onClick: () => onOpenSettings('mcp'),
       },
       {
         id: 'invite',
-        label: 'Invite a teammate',
+        label: '邀请成员',
         done: hasTeammates,
-        cta: 'Invite →',
+        cta: '邀请 →',
         onClick: () => onOpenSettings('users'),
       },
     ];
@@ -325,7 +325,7 @@ export const HomePage = memo(function HomePage(props: HomePageProps) {
                   trigger={['click']}
                 >
                   <Button type="primary" icon={<PlusOutlined />}>
-                    New
+                    新建
                   </Button>
                 </Dropdown>
               </header>

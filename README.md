@@ -1,310 +1,98 @@
 <img src="apps/agor-docs/public/logo-mark.svg" alt="Agor logo" width="92" height="92" />
 
-# Agor
+# Agor · 主要模块中文界面
 
-**Team command center for all things agentic.**
+本仓库基于 Agor，仅将主要模块、导航和常用入口改为简体中文。保留 Codex、Claude、MCP、Git、Branches、Worktree、Artifacts、Token 等技术术语，不改接口、配置键、权限策略或业务流程。
 
-Agor is a self-hosted, multiplayer-ready web workspace for running coding agents — Claude Code,
-Codex, Gemini, and others — on isolated git branches. Each branch is a first-class git working
-directory with its own dev environment and conversation history. Agents run in the browser instead
-of a terminal, with per-prompt token and cost accounting, structured tool output, and an MCP
-endpoint agents can drive themselves. Run it solo in a few minutes; turn on multiplayer and
-Unix-level isolation when you bring your team.
+汉化已在前端源码中生效：从本分支构建并安装后，无需另打补丁，也不依赖浏览器翻译。此次不是全量汉化，深层技术设置、模型输出、终端日志及部分说明仍保留英文。
 
-[![npm](https://img.shields.io/npm/v/agor-live?logo=npm&label=agor-live)](https://www.npmjs.com/package/agor-live)
-[![License: BSL 1.1](https://img.shields.io/badge/license-BSL%201.1-blue.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-agor.live-1f6feb.svg)](https://agor.live/guide/getting-started)
-[![Discord](https://img.shields.io/badge/Discord-join-5865F2.svg?logo=discord&logoColor=white)](https://discord.gg/Qh4TrFQZpd)
+> **不要用 `npm install -g agor-live` 安装本仓库汉化版。** 该命令安装的是上游 npm 包，不包含本仓库未发布的修改。上游预构建镜像同理。请按下方方式从本仓库构建。
 
-**[Documentation](https://agor.live/) · [Quick Start](#quick-start) · [Architecture](#architecture) · [Contributing](#development)**
+[上游项目说明](README.upstream.md) · [项目许可证](LICENSE) · [贡献说明](CONTRIBUTING.md)
 
----
+## 安装汉化版
 
-## Built on the agent CLIs & SDKs you already use
+当前汉化分支为 `feat/zh-cn-main-ui`。合并进 `main` 后，下面克隆命令的分支名可以改为 `main`。
 
-Agor ships no model of its own. It drives the coding-agent CLIs and SDKs you already run,
-interchangeable per session — bring your own provider and subscription, no vendor lock-in.
-[Compare the harnesses →](https://agor.live/guide/sdk-comparison)
+### 方式一：Docker 生产安装
 
-<p align="center">
-  <a href="https://github.com/anthropics/claude-code"><img src="apps/agor-docs/public/tools/claude-code.png" alt="Claude Code" height="44" /></a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/openai/codex"><img src="apps/agor-docs/public/tools/codex.png" alt="Codex" height="44" /></a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/google-gemini/gemini-cli"><img src="apps/agor-docs/public/tools/gemini.png" alt="Gemini CLI" height="44" /></a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/features/copilot"><img src="apps/agor-docs/public/tools/copilot.png" alt="GitHub Copilot" height="44" /></a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/sst/opencode"><img src="apps/agor-docs/public/tools/opencode.png" alt="OpenCode" height="44" /></a>
-  &nbsp;&nbsp;
-  <a href="https://cursor.com"><img src="apps/agor-docs/public/tools/cursor.png" alt="Cursor" height="44" /></a>
-</p>
-
-<!--
-  HERO VIDEO PLACEHOLDER
-  A ~1-minute product tour is in production. When the asset lands, embed/link it here, e.g.:
-  [![Watch the 1-minute tour](.github/hero-thumbnail.png)](https://www.youtube.com/watch?v=VIDEO_ID)
-  Until then, the unscripted demo below stands in.
--->
-
-![Agor board with live cursors, branch cards, zones, and agent dashboards](apps/agor-docs/public/screenshots/board-hero.png)
-
-_The board: branches as cards, zones as regions, agent sessions, and — optionally — teammates present live._
-
-**▶ [Watch the unscripted demo on YouTube](https://www.youtube.com/watch?v=3in0qh7ZH0g)** (13 min)
-
----
-
-## What it does
-
-- **Branches as the anchor** — every piece of work is a git branch with its own working directory,
-  dev environment, conversation history, and PR. One entity to point at.
-- **Isolated dev environments** — a one-click dev server per branch, with ports auto-assigned so
-  parallel branches never collide.
-- **Multi-runtime** — Claude Code, Codex, Gemini, OpenCode, Copilot, and Cursor (beta) are
-  interchangeable per session. Bring your own provider; no vendor lock-in.
-- **Rich session UI** — per-prompt token and dollar accounting, structured tool blocks,
-  model/effort selectors, completion chimes. The terminal experience, in the browser.
-- **MCP-native** — Agor exposes itself over MCP; sessions are auto-issued a token, so agents fork,
-  spawn, schedule, and report on their own work.
-- **Long-lived AI teammates** — persistent coworkers, each with a Knowledge-base namespace for
-  durable, searchable memory, plus skills and schedules. They collaborate with the team and with
-  each other, beyond one-off sessions.
-- **Multiplayer when you want it** — live cursors, comments, and shared sessions/environments for
-  your team. Optional; works fine solo.
-- **Governance & observability** — branch-scoped RBAC and ACLs, per-user credentials and env
-  vars, and per-prompt token + dollar accounting with full, durable history across every session.
-- **Self-hosted, with explicit isolation** — your repos and database (LibSQL or Postgres), with
-  trusted local, fail-closed sandbox, or delegated external execution. BSL 1.1.
-
----
-
-## Quick Start
-
-Requires **Node.js ≥ 22.12** ([install](https://nodejs.org)) and **Git** on `PATH`. HTTPS remotes also require a working system CA trust store; SSH remotes require an SSH client and configured keys or agent access.
+需要 Git、Docker 和 Docker Compose。现有 Dockerfile 中部分系统工具使用 Linux amd64 二进制；这套镜像流程面向 amd64，不承诺原生 ARM 构建。
 
 ```bash
-npm install -g agor-live
-
-agor init           # creates config/database and installs the tools you select
-agor daemon start   # runs the daemon in the background
-agor open           # opens the web UI
-```
-
-Use `agor install` later to change or repair the selected agentic tools; it does not initialize or recreate Agor.
-
-That's it — add a repo and create your first session from the onboarding wizard.
-
-Prefer Homebrew? See the [Getting Started guide](https://agor.live/guide/getting-started) for the
-brew path. For Docker, source builds, Postgres, and team setups, see
-[Extended Installation](https://agor.live/guide/extended-install).
-
----
-
-## Core Concepts
-
-Agor is built on three foundational entities — everything else builds on these:
-
-- **[Branches](https://agor.live/guide/branches)** — the unit of work. A first-class git working
-  directory on its own branch, with an isolated dev environment and its own conversations.
-  Conventionally 1 branch = 1 feature/PR.
-- **[Sessions & Trees](https://agor.live/guide/sessions)** — agent conversations with genealogy.
-  **Fork** to explore alternatives (copies context), **spawn** subsessions for focused subtasks
-  (fresh context window).
-- **[Boards & Zones](https://agor.live/guide/boards)** — a Figma-like 2D canvas of branches. Drop
-  a branch into a zone to fire a templated prompt.
-
-**[Read the Features Overview →](https://agor.live/guide/features-overview)**
-
----
-
-## Key Capabilities
-
-|                                                                           |                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **[Teammates](https://agor.live/guide/teammates)**                        | Long-lived AI coworkers, each with its own Knowledge-base namespace for durable, semantically searchable memory — shared with the team and able to collaborate with other teammates. Taught conversationally, then equipped with skills, MCP tools, gateway channels, and schedules. |
-| **[Agor MCP Server](https://agor.live/guide/internal-mcp)**               | Agor exposes itself over MCP. Agents introspect sessions, branches, and boards, and drive the system themselves.                                                                                                                                                                     |
-| **[Multiplayer & Social](https://agor.live/guide/multiplayer-social)**    | Live cursors, facepiles, spatial comments, and a shared multiplayer terminal.                                                                                                                                                                                                        |
-| **[Rich Chat UX](https://agor.live/guide/rich-chat-ux)**                  | Per-prompt token + dollar accounting, model/effort selectors, structured tool blocks, completion chimes.                                                                                                                                                                             |
-| **[Environments](https://agor.live/guide/environment-configuration)**     | One-click dev servers per branch with auto-managed unique ports — no more port fights.                                                                                                                                                                                               |
-| **[Security & RBAC](https://agor.live/guide/multiplayer-unix-isolation)** | Branch-scoped permission tiers, per-user credentials and env vars, and explicit execution modes (`simple` / `sandbox` / `delegated`).                                                                                                                                                |
-| **[Knowledge](https://agor.live/guide/knowledge)**                        | A shared, searchable markdown knowledge base — one place for decisions, runbooks, prompts, and agent memory.                                                                                                                                                                         |
-| **[Scheduler](https://agor.live/guide/scheduler)**                        | Cron-style triggers for templated prompts. Powers teammate heartbeats, standups, and automated audits.                                                                                                                                                                               |
-| **[Message Gateway](https://agor.live/guide/message-gateway)**            | Slack and GitHub as portals into Agor sessions.                                                                                                                                                                                                                                      |
-| **[Artifacts](https://agor.live/guide/artifacts)**                        | Live, interactive apps (dashboards, mockups, tools) rendered directly on the board.                                                                                                                                                                                                  |
-| **[Cards](https://agor.live/guide/cards)** (Beta)                         | Generic workflow entities for non-code workflows.                                                                                                                                                                                                                                    |
-
----
-
-## Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/marketing/agor-marketing-social-comment-context.png" alt="Multiplayer presence with comments on a branch card"/>
-        <p align="center"><em>Real-time multiplayer — cursors, facepile, scoped comments</em></p>
-      </td>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/conversation_full_page.png" alt="Task-centric conversation UI"/>
-        <p align="center"><em>Rich agent sessions with structured tool blocks</em></p>
-      </td>
-    </tr>
-    <tr>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/teammates-list.png" alt="Persistent AI teammates list"/>
-        <p align="center"><em>Persistent AI teammates with memory and skills</em></p>
-      </td>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/mcp_environment.png" alt="MCP-native control surface"/>
-        <p align="center"><em>MCP-native — agents drive Agor themselves</em></p>
-      </td>
-    </tr>
-    <tr>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/scheduler-modal.png" alt="Scheduler configuration modal"/>
-        <p align="center"><em>Scheduler — cron-style triggers for templated prompts</em></p>
-      </td>
-      <td width="50%">
-        <img src="apps/agor-docs/public/screenshots/env_configuration.png" alt="Branch environment configuration"/>
-        <p align="center"><em>One-click dev environments per branch</em></p>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-## Architecture
-
-```mermaid
-graph TB
-    subgraph Clients
-        CLI["CLI (oclif)"]
-        UI["Web UI (React)"]
-    end
-
-    Client["Feathers Client<br/>REST + WebSocket"]
-
-    subgraph "Agor Daemon"
-        Feathers["FeathersJS Server"]
-        MCP["MCP HTTP Endpoint<br/>POST /mcp + Bearer auth"]
-        Services["Services<br/>Sessions, Tasks, Messages<br/>Boards, Branches, Repos"]
-        ORM["Drizzle ORM"]
-    end
-
-    subgraph Executor["Executor (process-isolated)"]
-        AgentSDKs["Agent SDKs<br/>Claude · Codex · Gemini · OpenCode"]
-    end
-
-    subgraph Storage
-        DB[("LibSQL / Postgres<br/>~/.agor/agor.db")]
-        Git["Git Branches<br/>~/.agor/worktrees/"]
-        Config["Config<br/>~/.agor/config.yaml"]
-    end
-
-    CLI --> Client
-    UI --> Client
-    Client <-->|REST + WebSocket| Feathers
-
-    Feathers --> Services
-    Feathers --> MCP
-    MCP --> Services
-    Services --> ORM
-    Services --> Executor
-    Executor -.->|JSON-RPC 2.0| MCP
-
-    ORM --> DB
-    Services --> Git
-    Services --> Config
-```
-
-The **daemon** (`apps/agor-daemon`, FeathersJS) owns the database, services, WebSocket events, and
-the MCP HTTP endpoint. The **executor** (`packages/executor`) is a process-isolated runtime that
-spawns agents via their SDKs locally, inside the filesystem sandbox, or through a delegated external substrate. Shared types, the Drizzle schema,
-and git utilities live in `@agor/core` (`packages/core`).
-
-**[Full Architecture Guide →](https://agor.live/guide/architecture)**
-
-### Repository layout
-
-```
-agor/
-├── apps/
-│   ├── agor-daemon/   # FeathersJS backend (REST + WebSocket + MCP)
-│   ├── agor-ui/       # React UI (Ant Design + React Flow)
-│   ├── agor-cli/      # oclif CLI
-│   └── agor-docs/     # Docs site (Nextra) — canonical reference, published at agor.live
-├── packages/
-│   ├── core/          # @agor/core — types, db (Drizzle), git, api
-│   └── executor/      # Process-isolated agent runtime
-└── context/           # Agent-oriented cheat sheets and design docs
-```
-
----
-
-## Development
-
-The fastest path to a running dev instance from source:
-
-```bash
-git clone https://github.com/preset-io/agor
+git clone --branch feat/zh-cn-main-ui --single-branch https://github.com/zandai0227-pixel/agor.git
 cd agor
-docker compose up
-# Visit http://localhost:5173 → login: admin@agor.live / admin
+
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-Prefer running locally without Docker? The two-process workflow (daemon in watch mode + UI dev
-server) and the `.agor.yml` variants (sqlite / postgres / rich / HA / docs) are documented in the
-[Development Guide](https://agor.live/guide/development). It also covers running Agor _inside_ Agor
-for dogfooding.
+启动后访问 `http://localhost:3030`。服务器部署时，将 localhost 换成服务器地址；对外使用前配置 HTTPS 和访问控制。
 
-See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the contribution workflow, and **[CLAUDE.md](CLAUDE.md)**
-for the agent-oriented map of the codebase.
+本仓库的 `docker-compose.prod.yml` 已使用项目原有的 **`production-source`** 构建目标：构建当前 checkout 的 UI 和后端，再将本地生成的发布包安装进镜像，而不是安装上游 npm 包。
 
----
+首次启动采用原项目的管理员初始化机制。未设置 `AGOR_ADMIN_PASSWORD` 时，随机初始凭据保存在容器内：
 
-<div align="center">
+```bash
+docker compose -f docker-compose.prod.yml exec agor-prod \
+  cat /home/agor/.agor/admin-credentials
+```
 
-### ✨ Pledge ✨
+请仅在自己的终端查看凭据，首次登录按提示修改密码。原有数据库、配置及凭据持久化机制不变。
 
-**⭐️ I pledge to fix a GitHub issue for every star Agor gets :)**
+### 方式二：从源码构建本地安装包
 
-</div>
+适用于项目支持的 macOS / Linux 环境，需要 Node.js >= 22.12、Git 和 pnpm 11.17.0。Windows 原生安装不在发布包支持范围内，可使用合适的 Linux 环境。
 
----
+```bash
+git clone --branch feat/zh-cn-main-ui --single-branch https://github.com/zandai0227-pixel/agor.git
+cd agor
 
-## Community
+npm install -g pnpm@11.17.0
+pnpm install --frozen-lockfile
+bash packages/agor-live/build.sh --skip-install
 
-- **[Discord](https://discord.gg/Qh4TrFQZpd)** — support and discussion
-- **[GitHub Discussions](https://github.com/preset-io/agor/discussions)** — questions and ideas
-- **[GitHub Issues](https://github.com/preset-io/agor/issues)** — bugs and feature requests
+# 同时安装当前源码生成的 client 和主包，不依赖上游发布顺序。
+npm install -g --ignore-scripts --no-audit --no-fund \
+  ./packages/agor-live/release/agor-live-client-*.tgz \
+  ./packages/agor-live/release/agor-live-[0-9]*.tgz
 
-## License
+# 以下初始化命令用于全新安装。
+agor init
+agor daemon start
+agor open
+```
 
-[Business Source License 1.1](LICENSE) (`BUSL-1.1`). Agor is source-available,
-not open source, before the Change Date.
+复用项目原有的 `packages/agor-live/build.sh`，该脚本构建前端并打入 `agor-live` 安装包；这里不发布到 npm，也不需要额外运行汉化脚本。全局安装可能替换机器上已有的 `agor-live`，已有实例请先备份数据、停止旧 daemon，再更新。
 
-The Additional Use Grant permits production use, including internal and
-self-hosted commercial use. It does not permit commercializing Agor itself by
-offering its agent-orchestration functionality to third parties as a product or
-service, whether hosted, managed, or bundled for customers to operate.
-Consulting, support, integration, modification, use within a broader product or
-service, and single-customer internal deployments remain permitted subject to
-the license terms. Contact Preset, Inc. about alternative commercial licensing.
+### 开发环境
 
-On **January 15, 2029**, or the fourth anniversary of the first public BSL
-distribution of a particular version (whichever comes first), that version
-converts to the **Apache License 2.0**. The [license text](LICENSE) controls if
-this summary differs from it.
+检出本分支后，沿用项目原有开发流程即可看到中文入口：
 
-## About
+```bash
+docker compose up --build
+```
 
-**Heavily prompted by [@mistercrunch](https://github.com/mistercrunch)** ([Preset](https://preset.io?utm_source=agor&utm_medium=referral&utm_campaign=agor-readme),
-[Apache Superset](https://github.com/apache/superset), [Apache Airflow](https://github.com/apache/airflow)),
-built by an army of Claudes and Codexes.
+开发环境与生产环境的端口、默认账号及隔离设置不同，不要将开发 Compose 直接作为公网生产部署。
 
-**Read more:** [Agor Cloud — opening a private beta](https://agor.live/blog/agor-cloud) ·
-[Agent Modeling 101](https://agor.live/blog/agent-modeling-101) ·
-[Raise a team helper agent in an afternoon](https://agor.live/blog/raise-team-helper-agent) ·
-[all posts →](https://agor.live/blog)
+## 更新
+
+Docker 方式：在原部署目录和同一 Compose 项目中拉取已确认的汉化分支，然后重新构建，避免复用旧的上游镜像。
+
+```bash
+git pull --ff-only
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+保留原来的 Compose 项目名、环境变量和持久化卷。不要为更新 UI 删除数据库或执行 `docker compose down -v`。源码安装方式需要重新构建本地发布包、安装并重启 daemon。直接升级上游 npm 包会覆盖本地汉化版本。
+
+## 汉化范围
+
+- 首页的新建入口与引导项、看板切换与筛选、我的会话、知识库入口。
+- 顶部设置菜单、个人设置与退出登录、登录表单常用按钮。
+- 桌面及手机设置导航：工作区、看板、代码仓库、AI 队友、卡片、偏好设置、AI 工具、消息通道、用户管理等。
+- 页面语言为 `zh-CN`，Ant Design 使用简体中文 locale。技术词和原始业务标识保持不变。
+
+源码及文案测试一同维护。完整功能介绍和原项目链接保留在 [README.upstream.md](README.upstream.md)；其中的 npm、Homebrew 或上游镜像安装入口不等于本仓库汉化版安装入口。
+
+## 许可证与来源
+
+沿用原项目 [Business Source License 1.1](LICENSE)（`BUSL-1.1`）。原项目署名、许可证和使用限制均保留，汉化不改变授权条件。上游为 [preset-io/agor](https://github.com/preset-io/agor)。

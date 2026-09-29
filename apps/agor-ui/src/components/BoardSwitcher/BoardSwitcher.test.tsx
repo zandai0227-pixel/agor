@@ -115,12 +115,12 @@ describe('BoardSwitcher long-name layout', () => {
 describe('BoardSwitcher current-board edit shortcut', () => {
   it('allows the primary owner without consulting a legacy owners route', async () => {
     renderSwitcher(clientFor({ reject: { code: 500 } }));
-    expect(await screen.findByRole('button', { name: /Edit current board:/ })).toBeVisible();
+    expect(await screen.findByRole('button', { name: /编辑当前看板：/ })).toBeVisible();
   });
 
   it('passes only the current board to the canonical editor and does not navigate', async () => {
     const { onBoardChange } = renderSwitcher();
-    const edit = await screen.findByRole('button', { name: /Edit current board:/ });
+    const edit = await screen.findByRole('button', { name: /编辑当前看板：/ });
 
     fireEvent.click(edit);
 
@@ -143,7 +143,7 @@ describe('BoardSwitcher current-board edit shortcut', () => {
       const { rerender } = render(
         <BoardSwitcher {...props} boards={[board, fallback]} currentBoardId={board.board_id} />
       );
-      fireEvent.click(await screen.findByRole('button', { name: /Edit current board:/ }));
+      fireEvent.click(await screen.findByRole('button', { name: /编辑当前看板：/ }));
 
       // A private-board transfer removes the old owner's board and may select
       // a fallback before the command's response/Done interaction completes.
@@ -160,7 +160,7 @@ describe('BoardSwitcher current-board edit shortcut', () => {
 
   it('overlays the edit action without reserving trigger width', async () => {
     renderSwitcher();
-    const edit = await screen.findByRole('button', { name: /Edit current board:/ });
+    const edit = await screen.findByRole('button', { name: /编辑当前看板：/ });
     const trigger = edit.closest('div')?.querySelector('button.ant-dropdown-trigger');
 
     expect(trigger).toHaveStyle({ padding: '8px 12px' });
@@ -169,7 +169,7 @@ describe('BoardSwitcher current-board edit shortcut', () => {
 
   it('reserves room in the name row so a long name never underlaps the edit action', async () => {
     renderSwitcher();
-    const edit = await screen.findByRole('button', { name: /Edit current board:/ });
+    const edit = await screen.findByRole('button', { name: /编辑当前看板：/ });
     const trigger = edit.closest('div')?.querySelector('button.ant-dropdown-trigger');
     // controlHeightSM (24) + paddingSM (12) with the default antd seed token.
     expect(trigger?.querySelector('.ant-flex')).toHaveStyle({ marginRight: '36px' });
@@ -177,7 +177,7 @@ describe('BoardSwitcher current-board edit shortcut', () => {
 
   it('keeps the action keyboard reachable and reveals it on focus-within', async () => {
     renderSwitcher();
-    const edit = await screen.findByRole('button', { name: /Edit current board:/ });
+    const edit = await screen.findByRole('button', { name: /编辑当前看板：/ });
     act(() => edit.focus());
     expect(edit).toHaveFocus();
     await waitFor(() =>
@@ -194,13 +194,13 @@ describe('BoardSwitcher current-board edit shortcut', () => {
       role: 'member',
     } as User);
     await waitFor(() =>
-      expect(screen.queryByRole('button', { name: /Edit current board:/ })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /编辑当前看板：/ })).not.toBeInTheDocument()
     );
   });
 
   it('keeps the action visible without hover on small/touch layouts', async () => {
     renderSwitcher();
-    const edit = await screen.findByRole('button', { name: /Edit current board:/ });
+    const edit = await screen.findByRole('button', { name: /编辑当前看板：/ });
     expect(edit).toBeVisible();
   });
 });

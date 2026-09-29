@@ -117,7 +117,7 @@ export const HomeSessionsSection: React.FC<
 
   return (
     <section
-      aria-label={currentUserId ? 'My sessions' : 'Sessions'}
+      aria-label={currentUserId ? '我的会话' : '会话'}
       style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 240 }}
     >
       {/* Section header */}
@@ -131,7 +131,7 @@ export const HomeSessionsSection: React.FC<
         }}
       >
         <Text strong style={{ fontSize: 14 }}>
-          {currentUserId ? 'My Sessions' : 'Sessions'}
+          {currentUserId ? '我的会话' : '会话'}
         </Text>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <SessionSearchToolbar
@@ -140,7 +140,7 @@ export const HomeSessionsSection: React.FC<
             sort={sort}
             onSortChange={setSort}
             searching={searching}
-            placeholder="Filter sessions..."
+            placeholder="筛选会话…"
           />
         </div>
       </div>
@@ -167,7 +167,7 @@ export const HomeSessionsSection: React.FC<
         {displaySessions.length === 0 ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description={searching ? 'No matching sessions' : 'No sessions yet'}
+            description={searching ? '没有匹配的会话' : '暂无会话'}
             style={{ padding: '28px 0' }}
           />
         ) : (

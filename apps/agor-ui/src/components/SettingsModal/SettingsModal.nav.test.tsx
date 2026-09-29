@@ -94,9 +94,9 @@ describe('SettingsModal navigation gating', () => {
   it('offers an admin both Groups and Users', () => {
     renderNav('admin');
 
-    expect(menuLabels()).toContain('Groups');
-    expect(menuLabels()).toContain('Users');
-    expect(screen.getByText('Admin')).toBeInTheDocument();
+    expect(menuLabels()).toContain('用户组');
+    expect(menuLabels()).toContain('用户管理');
+    expect(screen.getByText('管理')).toBeInTheDocument();
   });
 
   it('offers a member Users but not Groups', () => {
@@ -104,24 +104,24 @@ describe('SettingsModal navigation gating', () => {
 
     // Kept on purpose: the daemon serves members the roster, so hiding it would
     // withhold something they are allowed to read.
-    expect(menuLabels()).toContain('Users');
-    expect(menuLabels()).not.toContain('Groups');
+    expect(menuLabels()).toContain('用户管理');
+    expect(menuLabels()).not.toContain('用户组');
   });
 
   it('offers a viewer neither, and drops the empty Admin heading with them', () => {
     renderNav('viewer');
 
-    expect(menuLabels()).not.toContain('Users');
-    expect(menuLabels()).not.toContain('Groups');
+    expect(menuLabels()).not.toContain('用户管理');
+    expect(menuLabels()).not.toContain('用户组');
     // An "Admin" group label with nothing under it is the bug this guards.
-    expect(screen.queryByText('Admin')).not.toBeInTheDocument();
+    expect(screen.queryByText('管理')).not.toBeInTheDocument();
   });
 
   it('keeps the admin-only integrations gated the way they already were', () => {
     renderNav('member');
 
-    expect(menuLabels()).not.toContain('Agentic Tools');
-    expect(menuLabels()).not.toContain('Gateway Channels');
+    expect(menuLabels()).not.toContain('AI 工具');
+    expect(menuLabels()).not.toContain('消息通道');
     // MCP Servers stays: members may read the policy that constrains them.
     expect(menuLabels()).toContain('MCP Servers');
   });

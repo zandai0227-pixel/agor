@@ -69,14 +69,14 @@ describe('AppHeader Knowledge Base button', () => {
   it('renders a standalone Knowledge Base button with correct href', () => {
     renderHeader();
 
-    const button = screen.getByRole('link', { name: 'Knowledge Base' });
+    const button = screen.getByRole('link', { name: '知识库' });
     expect(button).toHaveAttribute('href', '/ui/knowledge');
   });
 
   it('navigates to /knowledge via SPA navigation on plain click', () => {
     renderHeader();
 
-    const button = screen.getByRole('link', { name: 'Knowledge Base' });
+    const button = screen.getByRole('link', { name: '知识库' });
     fireEvent.click(button);
 
     expect(mockNavigate).toHaveBeenCalledExactlyOnceWith('/knowledge');
@@ -85,7 +85,7 @@ describe('AppHeader Knowledge Base button', () => {
   it('lets modifier clicks fall through to the browser', () => {
     renderHeader();
 
-    const button = screen.getByRole('link', { name: 'Knowledge Base' });
+    const button = screen.getByRole('link', { name: '知识库' });
     button.removeAttribute('href');
 
     const eventWasNotCancelled = fireEvent.click(button, { metaKey: true });
@@ -110,13 +110,13 @@ describe('AppHeader navigation entries', () => {
       .getAllByRole('link')
       .map((link) => link.getAttribute('aria-label') ?? link.textContent?.trim());
 
-    expect(linkNames).toEqual(['Knowledge Base']);
-    expect(screen.getByRole('button', { name: 'Open MCP Catalog' })).toBeVisible();
+    expect(linkNames).toEqual(['知识库']);
+    expect(screen.getByRole('button', { name: '打开 MCP 目录' })).toBeVisible();
   });
 
   it('opens Catalog without navigation', () => {
     renderHeader();
-    fireEvent.click(screen.getByRole('button', { name: 'Open MCP Catalog' }));
+    fireEvent.click(screen.getByRole('button', { name: '打开 MCP 目录' }));
     expect(screen.getByTestId('catalog-open')).toHaveTextContent('true');
     expect(mockNavigate).not.toHaveBeenCalled();
   });
@@ -127,7 +127,7 @@ describe('AppHeader navigation entries', () => {
         <AppHeader />
       </MemoryRouter>
     );
-    expect(screen.queryByRole('button', { name: 'Open MCP Catalog' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '打开 MCP 目录' })).not.toBeInTheDocument();
   });
 
   it('promotes Catalog to the header rather than the gear dropdown', async () => {
@@ -136,12 +136,12 @@ describe('AppHeader navigation entries', () => {
     // Option A from the spec: a marketplace is a surface people revisit, so
     // burying it in the settings menu is the failure this guards against.
     fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
-    await screen.findByText('Settings');
+    await screen.findByText('设置');
 
     // The header entry is an icon button carrying its name on aria-label, so a
     // rendered "Catalog" text node could only be a dropdown menu item.
     expect(screen.queryByText('Catalog')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Open MCP Catalog' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '打开 MCP 目录' })).toBeInTheDocument();
   });
 
   it('shows the Catalog entry to a viewer', () => {
@@ -149,7 +149,7 @@ describe('AppHeader navigation entries', () => {
     // filtered out of the entry. Connect is gated separately, in the surface.
     renderHeader({ user: { user_id: 'u1', email: 'v@agor.live', role: 'viewer' } as never });
 
-    expect(screen.getByRole('button', { name: 'Open MCP Catalog' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '打开 MCP 目录' })).toBeInTheDocument();
   });
 
   it('bounds the always-visible board switcher slot', () => {
@@ -172,8 +172,8 @@ describe('AppHeader settings dropdown', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
 
-    await screen.findByText('Settings');
-    expect(screen.queryByText('Knowledge Base')).not.toBeInTheDocument();
+    await screen.findByText('设置');
+    expect(screen.queryByText('知识库')).not.toBeInTheDocument();
   });
 
   it('invokes onEventStreamClick when Live Events is clicked', async () => {
@@ -182,7 +182,7 @@ describe('AppHeader settings dropdown', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
 
-    const liveEventsItem = await screen.findByText('Live Events');
+    const liveEventsItem = await screen.findByText('实时事件');
     fireEvent.click(liveEventsItem);
 
     expect(onEventStreamClick).toHaveBeenCalledOnce();
@@ -194,7 +194,7 @@ describe('AppHeader settings dropdown', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
 
-    const settingsItem = await screen.findByText('Settings');
+    const settingsItem = await screen.findByText('设置');
     fireEvent.click(settingsItem);
 
     expect(onSettingsClick).toHaveBeenCalledOnce();
@@ -209,7 +209,7 @@ describe('AppHeader settings dropdown', () => {
       ['Custom', 'custom'],
     ] as const) {
       fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
-      const themeText = await screen.findByText('Theme');
+      const themeText = await screen.findByText('主题');
       fireEvent.mouseOver(themeText);
       const option = await screen.findByText(label);
       fireEvent.click(option);
@@ -223,7 +223,7 @@ describe('AppHeader settings dropdown', () => {
     renderHeader({ onThemeEditorClick });
 
     fireEvent.click(screen.getByRole('button', { name: 'Settings menu' }));
-    const themeText = await screen.findByText('Theme');
+    const themeText = await screen.findByText('主题');
     fireEvent.mouseOver(themeText);
     const editItem = await screen.findByText('Edit Custom Theme');
     fireEvent.click(editItem);

@@ -43,7 +43,7 @@ describe('HomeKnowledgeSection', () => {
       query: { archived: false, $limit: HOME_KNOWLEDGE_LIMIT, $sort: { updated_at: -1 } },
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'View all 240' }));
+    fireEvent.click(screen.getByRole('button', { name: '查看全部（240）' }));
     expect(await screen.findByText('Knowledge page')).toBeTruthy();
   });
 
@@ -51,6 +51,6 @@ describe('HomeKnowledgeSection', () => {
     renderSection(vi.fn().mockResolvedValue({ total: 1, limit: 50, skip: 0, data: [doc('a')] }));
 
     expect(await screen.findByText('Doc a')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'View all' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: '查看全部' })).toBeTruthy();
   });
 });
