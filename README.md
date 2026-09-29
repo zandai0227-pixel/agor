@@ -4,7 +4,7 @@
 
 本仓库基于 Agor，仅将主要模块、导航和常用入口改为简体中文。保留 Codex、Claude、MCP、Git、Branches、Worktree、Artifacts、Token 等技术术语，不改接口、配置键、权限策略或业务流程。
 
-汉化已在前端源码中生效：从本分支构建并安装后，无需另打补丁，也不依赖浏览器翻译。此次不是全量汉化，深层技术设置、模型输出、终端日志及部分说明仍保留英文。
+汉化已在 `main` 的前端源码中生效：从本仓库构建并安装后，无需另打补丁，也不依赖浏览器翻译。此次不是全量汉化，深层技术设置、模型输出、终端日志及部分说明仍保留英文。
 
 > **不要用 `npm install -g agor-live` 安装本仓库汉化版。** 该命令安装的是上游 npm 包，不包含本仓库未发布的修改。上游预构建镜像同理。请按下方方式从本仓库构建。
 
@@ -12,14 +12,14 @@
 
 ## 安装汉化版
 
-当前汉化分支为 `feat/zh-cn-main-ui`。合并进 `main` 后，下面克隆命令的分支名可以改为 `main`。
+主要模块汉化已合并到 `main`，下方安装命令直接使用默认主分支，不需要检出汉化分支或应用补丁。
 
 ### 方式一：Docker 生产安装
 
 需要 Git、Docker 和 Docker Compose。现有 Dockerfile 中部分系统工具使用 Linux amd64 二进制；这套镜像流程面向 amd64，不承诺原生 ARM 构建。
 
 ```bash
-git clone --branch feat/zh-cn-main-ui --single-branch https://github.com/zandai0227-pixel/agor.git
+git clone --branch main --single-branch https://github.com/zandai0227-pixel/agor.git
 cd agor
 
 docker compose -f docker-compose.prod.yml up -d --build
@@ -43,7 +43,7 @@ docker compose -f docker-compose.prod.yml exec agor-prod \
 适用于项目支持的 macOS / Linux 环境，需要 Node.js >= 22.12、Git 和 pnpm 11.17.0。Windows 原生安装不在发布包支持范围内，可使用合适的 Linux 环境。
 
 ```bash
-git clone --branch feat/zh-cn-main-ui --single-branch https://github.com/zandai0227-pixel/agor.git
+git clone --branch main --single-branch https://github.com/zandai0227-pixel/agor.git
 cd agor
 
 npm install -g pnpm@11.17.0
@@ -65,7 +65,7 @@ agor open
 
 ### 开发环境
 
-检出本分支后，沿用项目原有开发流程即可看到中文入口：
+检出 `main` 后，沿用项目原有开发流程即可看到中文入口：
 
 ```bash
 docker compose up --build
@@ -75,9 +75,10 @@ docker compose up --build
 
 ## 更新
 
-Docker 方式：在原部署目录和同一 Compose 项目中拉取已确认的汉化分支，然后重新构建，避免复用旧的上游镜像。
+Docker 方式：在原部署目录和同一 Compose 项目中拉取 `main`，然后重新构建，避免复用旧的上游镜像。
 
 ```bash
+git switch main
 git pull --ff-only
 docker compose -f docker-compose.prod.yml up -d --build
 ```
@@ -92,6 +93,8 @@ docker compose -f docker-compose.prod.yml up -d --build
 - 页面语言为 `zh-CN`，Ant Design 使用简体中文 locale。技术词和原始业务标识保持不变。
 
 源码及文案测试一同维护。完整功能介绍和原项目链接保留在 [README.upstream.md](README.upstream.md)；其中的 npm、Homebrew 或上游镜像安装入口不等于本仓库汉化版安装入口。
+
+合并状态不等于运行验收：本次汉化合并时未执行完整项目构建、浏览器及 Docker 运行验证，正式部署前请在目标环境验证安装、登录和主要操作。
 
 ## 许可证与来源
 
